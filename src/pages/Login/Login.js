@@ -1,6 +1,7 @@
 import "../../styles/common.css";
 import "../Login/Login.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // document.body.addEventListener("keyup", () => {
 //   return id.value.length >= 1 && password.value.length >= 1
@@ -9,15 +10,11 @@ import React, { useEffect, useState } from "react";
 // });
 
 function Login() {
+  const navigate = useNavigate();
+  //navigate('/main')
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    console.log("렌더링 되었습니다.");
-    console.log({
-      
-    })
-  });
 
   const onChange = (e) => {
     setId(e.target.value);
@@ -27,8 +24,8 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  return (
-    <main className="container">
+  return (  
+    <main className="containers">
       <form>
         <h1>
           <span>W</span>es<span>t</span>agram
@@ -40,6 +37,7 @@ function Login() {
           value={id}
           onChange={onChange}
         />
+
         <input
           id="pas"
           type="password"
@@ -48,7 +46,14 @@ function Login() {
           value={password}
           onChange={onChange2}
         />
-        <button id="loginBtn">로그인</button>
+        <button
+          onClick={() => {
+            navigate("/main");
+          }}
+          id="loginBtn"
+        >
+          로그인
+        </button>
         <a href="#!">비밀번호를 잊으셨나요?</a>
       </form>
     </main>
