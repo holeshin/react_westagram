@@ -1,5 +1,9 @@
 import React from "react";
-import "../Main/Main.css";
+import "../Main/Main.scss";
+import "../../styles/common.scss";
+import profile from "../../assets/main/KakaoTalk_20230213_204309040.jpg";
+import posted from "../../assets/main/KakaoTalk_20230214_161243133.jpg";
+import building from "../../assets/main/KakaoTalk_20230216_100337086.jpg";
 
 const Main = () => {
   return (
@@ -18,12 +22,7 @@ const Main = () => {
           <div className="imgs">
             <img src="./images/explore.png" alt="explore logo" />
             <img src="./images/heart.png" alt="heart logo" />
-            <img
-              id="new_menu"
-              on
-              src="./images/profile.png"
-              alt="profile logo"
-            />
+            <img id="new_menu" src="./images/profile.png" alt="profile logo" />
           </div>
         </div>
         <div className="menu_box">
@@ -47,19 +46,12 @@ const Main = () => {
           <div className="article">
             <div className="information">
               <div className="profile">
-                <img
-                  style={{ width: "40px", height: "40px", marginRight: "10px" }}
-                  src="./images/KakaoTalk_20230213_204309040.jpg"
-                  alt=""
-                />
+                <img src={profile} alt="profile picture" />
                 <p>hole546</p>
               </div>
               <i className="bi bi-three-dots"></i>
             </div>
-            <img
-              src="./images/KakaoTalk_20230214_161243133.jpg"
-              alt="profile photo"
-            />
+            <img src={posted} alt="posted picture" />
 
             <div className="content">
               <div className="emotion">
@@ -69,6 +61,7 @@ const Main = () => {
               </div>
               <i className="bi bi-bookmark"></i>
             </div>
+
             <span className="hearts">좋아요 0개</span>
             <div className="commentSection"></div>
             <div id="comment_content"></div>
@@ -83,11 +76,7 @@ const Main = () => {
           <div className="article">
             <div className="information">
               <div className="profile">
-                <img
-                  style={{ width: "40px", height: "40px", marginRight: "10px" }}
-                  src="./images/KakaoTalk_20230216_100337086.jpg"
-                  alt="building photo"
-                />
+                <img src={building} alt="building photo" />
                 <p>63_building</p>
               </div>
             </div>

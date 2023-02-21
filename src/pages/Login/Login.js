@@ -1,20 +1,12 @@
-import "../../styles/common.css";
-import "../Login/Login.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// document.body.addEventListener("keyup", () => {
-//   return id.value.length >= 1 && password.value.length >= 1
-//     ? (loginButton.style.backgroundColor = "blue")
-//     : (loginButton.style.backgroundColor = "#c4e1fb");
-// });
+import "../Login/Login.scss";
 
 function Login() {
   const navigate = useNavigate();
-  //navigate('/main')
-
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("#c4e1fb");
 
   const onChange = (e) => {
     setId(e.target.value);
@@ -24,9 +16,36 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  return (  
-    <main className="containers">
-      <form>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const onKeyUp = () => {
+    return id.length > 0 && password.length > 0
+      ? setBackgroundColor("blue")
+      : setBackgroundColor("#c4e1fb");
+  };
+
+  const onClick = () => {
+    if (id.length === 0) {
+      alert("아이디를 입력하세요");
+    } else if (id.length > 1 && password.length === 0) {
+      alert("비밀번호를 입력하세요");
+    } else if (id.length > 20 || !id.includes("@")) {
+      alert("아이디 형식이 맞지 않습니다. 다시 입력하세요");
+    } else if (id.length > 1 && password.length < 5) {
+      alert("비밀번호는 5글자 이상입니다.");
+    } else if (id === password) {
+      alert("아이디와 비밀번호를 다르게 입력해주세요");
+    } else {
+      alert("로그인 성공");
+      navigate("/main");
+    }
+  };
+
+  return (
+    <main className="container2" onKeyUp={onKeyUp}>
+      <form onSubmit={handleSubmit}>
         <h1>
           <span>W</span>es<span>t</span>agram
         </h1>
@@ -37,7 +56,6 @@ function Login() {
           value={id}
           onChange={onChange}
         />
-
         <input
           id="pas"
           type="password"
@@ -46,12 +64,7 @@ function Login() {
           value={password}
           onChange={onChange2}
         />
-        <button
-          onClick={() => {
-            navigate("/main");
-          }}
-          id="loginBtn"
-        >
+        <button style={{ backgroundColor: backgroundColor }} onClick={onClick}>
           로그인
         </button>
         <a href="#!">비밀번호를 잊으셨나요?</a>
