@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "../Login/Login.scss";
 
 function Login() {
-  
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [backgroundColor, setBackgroundColor] = useState("#c4e1fb");
+  const [backgroundColor, setBackgroundColor] = useState(false);
 
   const onChange = (e) => {
     setId(e.target.value);
@@ -21,10 +20,11 @@ function Login() {
     e.preventDefault();
   };
 
-  const onKeyUp = () => {
+  const onKeyUp = (backgroundColor) => {
+    console.log(backgroundColor);
     return id.length > 0 && password.length > 0
-      ? setBackgroundColor("blue")
-      : setBackgroundColor("#c4e1fb");
+      ? setBackgroundColor(backgroundColor)
+      : setBackgroundColor(!backgroundColor);
   };
 
   const onClick = () => {
@@ -65,7 +65,10 @@ function Login() {
           value={password}
           onChange={onChange2}
         />
-        <button style={{ backgroundColor: backgroundColor }} onClick={onClick}>
+        <button
+          className={backgroundColor ? "changeLogin" : "defaultLogin"}
+          onClick={onClick}
+        >
           로그인
         </button>
         <a href="#!">비밀번호를 잊으셨나요?</a>
