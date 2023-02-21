@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Main/Main.scss";
 import "../../styles/common.scss";
 import profile from "../../assets/main/KakaoTalk_20230213_204309040.jpg";
@@ -6,6 +6,17 @@ import posted from "../../assets/main/KakaoTalk_20230214_161243133.jpg";
 import building from "../../assets/main/KakaoTalk_20230216_100337086.jpg";
 
 const Main = () => {
+  const [show, setShow] = useState(false);
+  const [heart, setHeart] = useState(false);
+
+  const menuToggle = () => {
+    setShow((show) => !show);
+  };
+
+  const likeToggle = () => {
+    setHeart((heart) => !heart);
+  };
+
   return (
     <>
       <nav>
@@ -22,10 +33,14 @@ const Main = () => {
           <div className="imgs">
             <img src="./images/explore.png" alt="explore logo" />
             <img src="./images/heart.png" alt="heart logo" />
-            <img id="new_menu" src="./images/profile.png" alt="profile logo" />
+            <img
+              onClick={menuToggle}
+              src="./images/profile.png"
+              alt="profile logo"
+            />
           </div>
         </div>
-        <div className="menu_box">
+        <div className={show ? "menuBoxClicked " : "menuBox "}>
           <ul>
             <li>
               <i className="bi bi-person-circle"></i>프로필
@@ -55,7 +70,14 @@ const Main = () => {
 
             <div className="content">
               <div className="emotion">
-                <i className="bi bi-suit-heart-fill"></i>
+                <i
+                  onClick={likeToggle}
+                  className={
+                    heart
+                      ? "bi bi-suit-heart-fill clicked"
+                      : "bi bi-suit-heart-fill"
+                  }
+                ></i>
                 <i className="bi bi-chat"></i>
                 <i className="bi bi-upload"></i>
               </div>

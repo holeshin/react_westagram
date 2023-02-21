@@ -13,7 +13,6 @@ nav {
         width: 250px;
         height: 30px;
         text-align: center;
-
         &::placeholder {
           text-align: center;
         }
@@ -44,7 +43,7 @@ nav {
     }
   }
 
-  .menu_box {
+  .menuBox {
     position: absolute;
     right: 200px;
     width: 180px;
@@ -54,6 +53,36 @@ nav {
     transition: 0.3s ease-out;
     opacity: 0;
 
+    ul {
+      list-style: none;
+      border-bottom: 1px solid black;
+      font-size: 16px;
+      padding-left: 10px;
+    }
+
+    li {
+      padding: 0 0 10px 0;
+    }
+
+    i {
+      padding-right: 10px;
+    }
+
+    p {
+      padding-left: 10px;
+    }
+  }
+  .menuBoxClicked {
+    position: absolute;
+    right: 200px;
+    width: 180px;
+    border: 1px solid;
+    color: black;
+    background-color: white;
+    visibility: visible;
+    transition: 0.3s ease-out;
+    z-index: 10;
+    opacity: 1;
     ul {
       list-style: none;
       border-bottom: 1px solid black;
@@ -131,6 +160,13 @@ main {
 
         .emotion {
           cursor: pointer;
+
+          .bi-suit-heart-fill {
+            color: black;
+          }
+          .bi-suit-heart-fill.clicked {
+            color: red;
+          }
 
           i {
             margin-right: 10px;
@@ -348,44 +384,41 @@ main {
   }
 }
 
-.menu_box.clicked {
-  background-color: white;
-  visibility: visible;
-  transition: 0.3s ease-out;
-  z-index: 10;
-  opacity: 1;
-}
-
-.bi-suit-heart-fill.clicked {
-  color: red;
-}
+// .bi-suit-heart-fill .clicked {
+//   color: red;
+// }
+// .bi-suit-heart-fill {
+//   color: black;
+// }
 
 .upThumbs {
   color: rgb(233, 233, 68);
 }
 
-@media (max-width: 768px) {
-  .main-right {
-    display: none;
-  }
-  .search {
-    width: 180px;
-    height: 30px;
-    text-align: center;
-  }
-  .feeds {
-    width: 100%;
-    margin: 10px 10px;
-  }
-  .menu_box.clicked {
-    background-color: white;
-    visibility: visible;
-    transition: 0.3s ease-out;
-    z-index: 10;
-    opacity: 1;
-    right: 0;
-  }
-  .instagram_img {
-    width: 250px;
-  }
-}
+//반응형
+
+// @media (max-width: 768px) {
+//   .main-right {
+//     display: none;
+//   }
+//   .search {
+//     width: 180px;
+//     height: 30px;
+//     text-align: center;
+//   }
+//   .feeds {
+//     width: 100%;
+//     margin: 10px 10px;
+//   }
+//   .menu_box.clicked {
+//     background-color: white;
+//     visibility: visible;
+//     transition: 0.3s ease-out;
+//     z-index: 10;
+//     opacity: 1;
+//     right: 0;
+//   }
+//   .instagram_img {
+//     width: 250px;
+//   }
+// }

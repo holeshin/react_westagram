@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../Login/Login.scss";
 
 function Login() {
+  
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
