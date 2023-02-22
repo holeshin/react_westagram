@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-.loginContainer {
+.login {
   display: flex;
   width: 40%;
   height: 800px;
@@ -40,10 +40,11 @@
       font-weight: 600;
       color: black;
       border: 1px solid gainsboro;
-      padding: 20px;
+
       &:focus {
         outline: none;
       }
+
       &::placeholder {
         color: #999999;
       }

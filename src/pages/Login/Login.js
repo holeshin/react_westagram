@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Login/Login.scss';
 
@@ -44,7 +44,7 @@ function Login() {
   };
 
   return (
-    <main className="loginContainer" onKeyUp={onKeyUp}>
+    <main className="login" onKeyUp={onKeyUp}>
       <form className="loginForm" onSubmit={handleSubmit}>
         <h1>
           <span>W</span>es<span>t</span>agram

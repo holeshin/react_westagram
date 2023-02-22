@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../Main/Main.scss';
-import '../../styles/common.scss';
+// import '../../styles/common.scss';
 import profile from '../../assets/main/KakaoTalk_20230213_204309040.jpg';
 import posted from '../../assets/main/KakaoTalk_20230214_161243133.jpg';
 import building from '../../assets/main/KakaoTalk_20230216_100337086.jpg';
@@ -83,7 +83,7 @@ const Main = () => {
   };
 
   return (
-    <>
+    <div className="main">
       <nav>
         <div className="container">
           <img
@@ -191,7 +191,7 @@ const Main = () => {
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 };
 
