@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-.container2 {
+.loginContainer {
   display: flex;
   width: 40%;
   height: 800px;
@@ -8,7 +8,7 @@
   margin: 20px auto;
   background-color: #fafafa;
 
-  form {
+  .loginForm {
     width: 95%;
     height: 95%;
     display: flex;
@@ -25,7 +25,7 @@
     }
 
     h1 {
-      font-family: "Lobster", sans-serif;
+      font-family: 'Lobster', sans-serif;
       font-size: 65px;
       margin: 55px 0;
     }

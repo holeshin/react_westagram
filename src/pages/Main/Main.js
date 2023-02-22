@@ -1,20 +1,85 @@
-import React, { useState } from "react";
-import "../Main/Main.scss";
-import "../../styles/common.scss";
-import profile from "../../assets/main/KakaoTalk_20230213_204309040.jpg";
-import posted from "../../assets/main/KakaoTalk_20230214_161243133.jpg";
-import building from "../../assets/main/KakaoTalk_20230216_100337086.jpg";
+import React, { useState } from 'react';
+import '../Main/Main.scss';
+import '../../styles/common.scss';
+import profile from '../../assets/main/KakaoTalk_20230213_204309040.jpg';
+import posted from '../../assets/main/KakaoTalk_20230214_161243133.jpg';
+import building from '../../assets/main/KakaoTalk_20230216_100337086.jpg';
+
+let saveComment = [];
+let numberComments = 0;
 
 const Main = () => {
   const [show, setShow] = useState(false);
   const [heart, setHeart] = useState(false);
+  let [comment, setComment] = useState('');
 
   const menuToggle = () => {
-    setShow((show) => !show);
+    setShow(show => !show);
   };
 
   const likeToggle = () => {
-    setHeart((heart) => !heart);
+    setHeart(heart => !heart);
+  };
+
+  const changeComment = e => {
+    setComment(e.target.value);
+  };
+
+  const commitCreate = e => {
+    if (e.key === 'Enter') {
+      if (comment.length > 0) {
+        commentInformation();
+        comment = '';
+      }
+    }
+  };
+
+  const commentInformation = () => {
+    let input = {
+      id: random(),
+      value: comment,
+      up: false,
+    };
+    saveComment.push(input);
+    console.log(saveComment);
+    commentsRender();
+  };
+
+  const commentsRender = () => {
+    if (numberComments < 0) {
+      numberComments = 0;
+    }
+    let result = ``;
+    saveComment.forEach(item => {
+      console.log(item);
+      if (!item.up) {
+        result += `
+    <div className="contents" >
+      <p><strong>${item.id}</strong> ${item.value}</p>
+      <div>
+        <button  onClick="itSoundsGood('${item.id}')"><i className="bi bi-hand-thumbs-up-fill"></i></button>
+        <button onClick="deleteComment('${item.id}')"><i className="bi bi-trash3"></i></button>
+      </div>
+    </div>`;
+      } else {
+        result += `
+      <div className="contents" >
+        <p><strong>${item.id}</strong> ${item.value}</p>
+        <div>
+          <button className="upThumbs" onClick="itSoundsGood('${item.id}')"><i className="bi bi-hand-thumbs-up-fill"></i></button>
+          <button onClick="deleteComment('${item.id}')"><i className="bi bi-trash3"></i></button>
+        </div>
+      </div>`;
+      }
+      // commentSection.innerHTML = `<img src="./image/KakaoTalk_20230213_204309040.jpg" alt="">
+      // <p><strong>${item.id}</strong>님 외&nbsp<strong>${numberComments}명</strong>이 댓글을 다셨습니다.</p>`;
+    });
+    numberComments++;
+    // commentContent.innerHTML = result;
+  };
+
+  const random = () => {
+    return Math.random().toString(36).substr(2, 16);
   };
 
   return (
@@ -40,7 +105,7 @@ const Main = () => {
             />
           </div>
         </div>
-        <div className={show ? "menuBoxClicked " : "menuBox "}>
+        <div className={show ? 'menuBoxClicked ' : 'menuBox '}>
           <ul>
             <li>
               <i className="bi bi-person-circle"></i>프로필
@@ -56,7 +121,7 @@ const Main = () => {
         </div>
       </nav>
 
-      <main>
+      <main className="mainContainer">
         <div className="feeds">
           <div className="article">
             <div className="information">
@@ -74,8 +139,8 @@ const Main = () => {
                   onClick={likeToggle}
                   className={
                     heart
-                      ? "bi bi-suit-heart-fill clicked"
-                      : "bi bi-suit-heart-fill"
+                      ? 'bi bi-suit-heart-fill clicked'
+                      : 'bi bi-suit-heart-fill'
                   }
                 ></i>
                 <i className="bi bi-chat"></i>
@@ -88,7 +153,14 @@ const Main = () => {
             <div className="commentSection"></div>
             <div id="comment_content"></div>
             <div className="wrap">
-              <input id="comment" type="text" placeholder="댓글 달기" />
+              <input
+                onKeyPress={commitCreate}
+                id="comment"
+                type="text"
+                placeholder="댓글 달기"
+                value={comment}
+                onChange={changeComment}
+              />
               <button id="postingBtn">게시</button>
             </div>
           </div>

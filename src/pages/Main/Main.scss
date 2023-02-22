@@ -1,110 +1,108 @@
-nav {
-  .container {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.container {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  .icon {
     position: relative;
-    .icon {
-      position: relative;
 
-      .search {
-        width: 250px;
-        height: 30px;
+    .search {
+      width: 250px;
+      height: 30px;
+      text-align: center;
+      &::placeholder {
         text-align: center;
-        &::placeholder {
-          text-align: center;
-        }
-
-        &:focus::placeholder {
-          color: transparent;
-        }
       }
 
-      .bi-search {
-        position: absolute;
-        color: #757575;
-        font-size: 12px;
-        top: 22%;
-        right: 60%;
+      &:focus::placeholder {
+        color: transparent;
       }
     }
 
-    .imgs {
-      display: flex;
-
-      img {
-        padding: 0 20px;
-        width: 80px;
-        height: 40px;
-        cursor: pointer;
-      }
+    .bi-search {
+      position: absolute;
+      color: #757575;
+      font-size: 12px;
+      top: 22%;
+      right: 60%;
     }
   }
 
-  .menuBox {
-    position: absolute;
-    right: 200px;
-    width: 180px;
-    border: 1px solid;
-    color: black;
-    visibility: hidden;
-    transition: 0.3s ease-out;
-    opacity: 0;
+  .imgs {
+    display: flex;
 
-    ul {
-      list-style: none;
-      border-bottom: 1px solid black;
-      font-size: 16px;
-      padding-left: 10px;
-    }
-
-    li {
-      padding: 0 0 10px 0;
-    }
-
-    i {
-      padding-right: 10px;
-    }
-
-    p {
-      padding-left: 10px;
-    }
-  }
-  .menuBoxClicked {
-    position: absolute;
-    right: 200px;
-    width: 180px;
-    border: 1px solid;
-    color: black;
-    background-color: white;
-    visibility: visible;
-    transition: 0.3s ease-out;
-    z-index: 10;
-    opacity: 1;
-    ul {
-      list-style: none;
-      border-bottom: 1px solid black;
-      font-size: 16px;
-      padding-left: 10px;
-    }
-
-    li {
-      padding: 0 0 10px 0;
-    }
-
-    i {
-      padding-right: 10px;
-    }
-
-    p {
-      padding-left: 10px;
+    img {
+      padding: 0 20px;
+      width: 80px;
+      height: 40px;
+      cursor: pointer;
     }
   }
 }
 
-main {
+.menuBox {
+  position: absolute;
+  right: 200px;
+  width: 180px;
+  border: 1px solid;
+  color: black;
+  visibility: hidden;
+  transition: 0.3s ease-out;
+  opacity: 0;
+
+  ul {
+    list-style: none;
+    border-bottom: 1px solid black;
+    font-size: 16px;
+    padding-left: 10px;
+  }
+
+  li {
+    padding: 0 0 10px 0;
+  }
+
+  i {
+    padding-right: 10px;
+  }
+
+  p {
+    padding-left: 10px;
+  }
+}
+.menuBoxClicked {
+  position: absolute;
+  right: 200px;
+  width: 180px;
+  border: 1px solid;
+  color: black;
+  background-color: white;
+  visibility: visible;
+  transition: 0.3s ease-out;
+  z-index: 10;
+  opacity: 1;
+  ul {
+    list-style: none;
+    border-bottom: 1px solid black;
+    font-size: 16px;
+    padding-left: 10px;
+  }
+
+  li {
+    padding: 0 0 10px 0;
+  }
+
+  i {
+    padding-right: 10px;
+  }
+
+  p {
+    padding-left: 10px;
+  }
+}
+
+.mainContainer {
   display: flex;
   justify-content: center;
 
