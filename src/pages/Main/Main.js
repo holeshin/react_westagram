@@ -1,24 +1,47 @@
 import React, { useState } from 'react';
+import Comment from '../commponents/Comment';
 import '../Main/Main.scss';
-// import '../../styles/common.scss';
+
 import profile from '../../assets/main/KakaoTalk_20230213_204309040.jpg';
 import posted from '../../assets/main/KakaoTalk_20230214_161243133.jpg';
 import building from '../../assets/main/KakaoTalk_20230216_100337086.jpg';
 
-let saveComment = [];
-let numberComments = 0;
-
 const Main = () => {
   const [show, setShow] = useState(false);
   const [heart, setHeart] = useState(false);
-  let [comment, setComment] = useState('');
+  const [like, setLike] = useState(false);
+  const [comment, setComment] = useState('');
+  const [saveComment, setSaveComment] = useState([]);
+  const [numberComments, setNumberComments] = useState(0);
+  const [numberlike, setNumberLike] = useState(0);
 
   const menuToggle = () => {
     setShow(show => !show);
   };
 
-  const likeToggle = () => {
+  const heartToggle = () => {
     setHeart(heart => !heart);
+  };
+
+  const likeToggle = item => {
+    for (let i = 0; i < saveComment.length; i++) {
+      if (saveComment[i].id === item.id && !item.up) {
+        item.up = !item.up;
+        setNumberLike(numberlike + 1);
+      } else if (saveComment[i].id === item.id && item.up) {
+        item.up = !item.up;
+        setNumberLike(numberlike - 1);
+      }
+    }
+  };
+
+  const deleteComment = item => {
+    for (let i = 0; i < saveComment.length; i++) {
+      if (saveComment[i].id === item.id) {
+        setSaveComment(saveComment.splice(i, 1));
+        setNumberComments(numberComments - 1);
+      }
+    }
   };
 
   const changeComment = e => {
@@ -29,8 +52,15 @@ const Main = () => {
     if (e.key === 'Enter') {
       if (comment.length > 0) {
         commentInformation();
-        comment = '';
+        setComment('');
       }
+    }
+  };
+
+  const postButton = () => {
+    if (comment.length > 0) {
+      commentInformation();
+      setComment('');
     }
   };
 
@@ -38,44 +68,10 @@ const Main = () => {
     let input = {
       id: random(),
       value: comment,
-      up: false,
+      up: like,
     };
-    saveComment.push(input);
-    console.log(saveComment);
-    commentsRender();
-  };
-
-  const commentsRender = () => {
-    if (numberComments < 0) {
-      numberComments = 0;
-    }
-    let result = ``;
-    saveComment.forEach(item => {
-      console.log(item);
-      if (!item.up) {
-        result += `
-    <div className="contents" >
-      <p><strong>${item.id}</strong> ${item.value}</p>
-      <div>
-        <button  onClick="itSoundsGood('${item.id}')"><i className="bi bi-hand-thumbs-up-fill"></i></button>
-        <button onClick="deleteComment('${item.id}')"><i className="bi bi-trash3"></i></button>
-      </div>
-    </div>`;
-      } else {
-        result += `
-      <div className="contents" >
-        <p><strong>${item.id}</strong> ${item.value}</p>
-        <div>
-          <button className="upThumbs" onClick="itSoundsGood('${item.id}')"><i className="bi bi-hand-thumbs-up-fill"></i></button>
-          <button onClick="deleteComment('${item.id}')"><i className="bi bi-trash3"></i></button>
-        </div>
-      </div>`;
-      }
-      // commentSection.innerHTML = `<img src="./image/KakaoTalk_20230213_204309040.jpg" alt="">
-      // <p><strong>${item.id}</strong>님 외&nbsp<strong>${numberComments}명</strong>이 댓글을 다셨습니다.</p>`;
-    });
-    numberComments++;
-    // commentContent.innerHTML = result;
+    setSaveComment([...saveComment, input]);
+    setNumberComments(numberComments + 1);
   };
 
   const random = () => {
@@ -93,7 +89,7 @@ const Main = () => {
           />
           <div className="icon">
             <input className="search" type="text" placeholder="검색" />
-            <i className="bi bi-search"></i>
+            <i className="bi bi-search" />
           </div>
           <div className="imgs">
             <img src="./images/explore.png" alt="explore logo" />
@@ -108,13 +104,15 @@ const Main = () => {
         <div className={show ? 'menuBoxClicked ' : 'menuBox '}>
           <ul>
             <li>
-              <i className="bi bi-person-circle"></i>프로필
+              <i className="bi bi-person-circle" />
+              프로필
             </li>
             <li>
-              <i className="bi bi-bookmark"></i>저장됨
+              <i className="bi bi-bookmark" />
+              저장됨
             </li>
             <li>
-              <i className="bi bi-gear-wide"></i> 설정
+              <i className="bi bi-gear-wide" /> 설정
             </li>
           </ul>
           <p>로그아웃</p>
@@ -126,32 +124,42 @@ const Main = () => {
           <div className="article">
             <div className="information">
               <div className="profile">
-                <img src={profile} alt="profile picture" />
+                <img src={profile} alt="profile" />
                 <p>hole546</p>
               </div>
-              <i className="bi bi-three-dots"></i>
+              <i className="bi bi-three-dots" />
             </div>
-            <img src={posted} alt="posted picture" />
+            <img src={posted} alt="posted" />
 
             <div className="content">
               <div className="emotion">
                 <i
-                  onClick={likeToggle}
+                  onClick={heartToggle}
                   className={
                     heart
                       ? 'bi bi-suit-heart-fill clicked'
                       : 'bi bi-suit-heart-fill'
                   }
-                ></i>
-                <i className="bi bi-chat"></i>
-                <i className="bi bi-upload"></i>
+                />
+                <i className="bi bi-chat" />
+                <i className="bi bi-upload" />
               </div>
-              <i className="bi bi-bookmark"></i>
+              <i className="bi bi-bookmark" />
             </div>
 
-            <span className="hearts">좋아요 0개</span>
-            <div className="commentSection"></div>
-            <div id="comment_content"></div>
+            <span className="hearts">좋아요 {numberlike}개</span>
+            <div className="commentSection">
+              <p>
+                <strong>{numberComments}명</strong>이 댓글을 다셨습니다.
+              </p>
+            </div>
+            <div id="comment_content">
+              <Comment
+                saveComment={saveComment}
+                likeToggle={likeToggle}
+                deleteComment={deleteComment}
+              />
+            </div>
             <div className="wrap">
               <input
                 onKeyPress={commitCreate}
@@ -161,7 +169,9 @@ const Main = () => {
                 value={comment}
                 onChange={changeComment}
               />
-              <button id="postingBtn">게시</button>
+              <button id="postingBtn" onClick={postButton}>
+                게시
+              </button>
             </div>
           </div>
         </div>
@@ -170,7 +180,7 @@ const Main = () => {
           <div className="article">
             <div className="information">
               <div className="profile">
-                <img src={building} alt="building photo" />
+                <img src={building} alt="building" />
                 <p>63_building</p>
               </div>
             </div>
