@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Comment from '../commponents/Comment';
 import '../Main/Main.scss';
-
 import profile from '../../assets/main/KakaoTalk_20230213_204309040.jpg';
 import posted from '../../assets/main/KakaoTalk_20230214_161243133.jpg';
 import building from '../../assets/main/KakaoTalk_20230216_100337086.jpg';
@@ -9,11 +8,14 @@ import building from '../../assets/main/KakaoTalk_20230216_100337086.jpg';
 const Main = () => {
   const [show, setShow] = useState(false);
   const [heart, setHeart] = useState(false);
-  const [like, setLike] = useState(false);
   const [comment, setComment] = useState('');
   const [saveComment, setSaveComment] = useState([]);
   const [numberComments, setNumberComments] = useState(0);
   const [numberlike, setNumberLike] = useState(0);
+
+  if (numberlike < 0) {
+    setNumberLike(0);
+  }
 
   const menuToggle = () => {
     setShow(show => !show);
@@ -21,27 +23,6 @@ const Main = () => {
 
   const heartToggle = () => {
     setHeart(heart => !heart);
-  };
-
-  const likeToggle = item => {
-    for (let i = 0; i < saveComment.length; i++) {
-      if (saveComment[i].id === item.id && !item.up) {
-        item.up = !item.up;
-        setNumberLike(numberlike + 1);
-      } else if (saveComment[i].id === item.id && item.up) {
-        item.up = !item.up;
-        setNumberLike(numberlike - 1);
-      }
-    }
-  };
-
-  const deleteComment = item => {
-    for (let i = 0; i < saveComment.length; i++) {
-      if (saveComment[i].id === item.id) {
-        setSaveComment(saveComment.splice(i, 1));
-        setNumberComments(numberComments - 1);
-      }
-    }
   };
 
   const changeComment = e => {
@@ -68,10 +49,32 @@ const Main = () => {
     let input = {
       id: random(),
       value: comment,
-      up: like,
+      up: false,
     };
     setSaveComment([...saveComment, input]);
     setNumberComments(numberComments + 1);
+  };
+
+  const likeToggle = item => {
+    saveComment.filter(items => {
+      if (items.id === item.id && !item.up) {
+        item.up = !item.up;
+        setNumberLike(numberlike + 1);
+      } else if (items.id === item.id && item.up) {
+        item.up = !item.up;
+        setNumberLike(numberlike - 1);
+      }
+    });
+  };
+
+  const deleteComment = item => {
+    setSaveComment(
+      saveComment.filter(items => {
+        return items.id !== item.id;
+      })
+    );
+    setNumberComments(numberComments - 1);
+    setNumberLike(numberlike - 1);
   };
 
   const random = () => {
@@ -154,11 +157,15 @@ const Main = () => {
               </p>
             </div>
             <div id="comment_content">
-              <Comment
-                saveComment={saveComment}
-                likeToggle={likeToggle}
-                deleteComment={deleteComment}
-              />
+              {saveComment.map(item => (
+                <Comment
+                  item={item}
+                  key={item.id}
+                  saveComment={saveComment}
+                  likeToggle={likeToggle}
+                  deleteComment={deleteComment}
+                />
+              ))}
             </div>
             <div className="wrap">
               <input
